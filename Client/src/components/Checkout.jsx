@@ -4,6 +4,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL; 
+
 
 const Checkout = () => {
   //  State for cart form data total amount and mock receipt
@@ -17,7 +19,7 @@ const Checkout = () => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await axios.get("http://localhost:7000/api/cart");
+        const res = await axios.get(`${BASE_URL}/api/cart`);
         setCartItems(res.data.cart);
         setTotal(res.data.total);
       } catch {
@@ -42,7 +44,7 @@ const Checkout = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:7000/api/checkout", {cartItems,});
+      const res = await axios.post(`${BASE_URL}/api/checkout`, {cartItems,});
       setReceipt(res.data); // show success screen
       toast.success("Checkout successful");
     } catch {

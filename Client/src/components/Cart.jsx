@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Trash2, Plus, Minus, ArrowLeft, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const Cart = () => {
   // State for cart data, total price, and loading status
@@ -16,7 +17,7 @@ const Cart = () => {
   //Fetch cart data from backend
   const fetchCart = async () => {
     try {
-      const res = await axios.get("http://localhost:7000/api/cart");
+      const res = await axios.get(`${BASE_URL}/api/cart`);
       setCart(res.data.cart);
       setTotal(res.data.total);
     } catch (error) {
@@ -37,7 +38,9 @@ const Cart = () => {
   // Increase quantity of an item
   const increaseQty = async (item) => {
     try {
-      await axios.post("http://localhost:7000/api/cart", {productId: item.productId._id, qty: 1,});
+        await axios.post(`${BASE_URL}/api/cart`, {
+        productId: item.productId._id,
+        qty: 1,});
       fetchCart();
       toast.success("Quantity increased");
     } catch {
@@ -51,7 +54,7 @@ const Cart = () => {
   const decreaseQty = async (item) => {
     if (item.quantity === 1) return removeItem(item._id);
     try {
-      await axios.post("http://localhost:7000/api/cart", { productId: item.productId._id, qty: -1,});
+     await axios.post(`${BASE_URL}/api/cart`, { productId: item.productId._id, qty: -1,});
       fetchCart();
       toast.success("Quantity decreased ✅");
     } catch {
@@ -65,7 +68,7 @@ const Cart = () => {
   //  Remove item from cart
   const removeItem = async (id) => {
     try {
-      await axios.delete(`http://localhost:7000/api/cart/${id}`);
+        await axios.delete(`${BASE_URL}/api/cart/${id}`);
       fetchCart();
       toast.success("Item removed");
     } catch {

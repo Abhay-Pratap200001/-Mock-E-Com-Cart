@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 import { ArrowRight, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 const Product = () => {
   //state for product loading 
@@ -17,7 +19,7 @@ const Product = () => {
   // Function to fetch all products from backend API
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:7000/api/products");
+      const res = await axios.get(`${BASE_URL}/api/products`);
       setProducts(res.data); 
     } catch (error) {
       toast.error("Failed to load products"); 
@@ -35,7 +37,7 @@ const Product = () => {
   const handleAddToCart = async (product) => {
     try {
       // Send product ID and quantity to backend
-      await axios.post("http://localhost:7000/api/cart", { productId: product._id, qty: 1, // default quantity 1
+           await axios.post(`${BASE_URL}/api/cart`, { productId: product._id, qty: 1, // default quantity 1
       });
       toast.success(`${product.name} added to cart 🛒`); // show success message
     } catch (error) {

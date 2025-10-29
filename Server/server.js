@@ -16,7 +16,12 @@ app.use(express.json())
 const _dirname = path.resolve();
 
 app.use(
-  cors({origin: "http://localhost:5173" }) // your Vite frontend
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://mock-e-com-cart-client.onrender.com",
+    ],
+  })
 );
 
 
