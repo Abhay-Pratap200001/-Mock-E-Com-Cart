@@ -13,7 +13,7 @@ const app = express()
 const PORT = process.env.PORT || 2000
 app.use(express.json())
 
-const _dirname = Path.resolve();
+const _dirname = path.resolve();
 
 app.use(
   cors({origin: "http://localhost:5173" }) // your Vite frontend

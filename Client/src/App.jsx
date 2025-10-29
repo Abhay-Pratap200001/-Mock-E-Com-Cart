@@ -1,4 +1,4 @@
-// src/App.jsx
+// App.jsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Product from "./components/Product";
@@ -20,3 +20,5 @@ const App = () => {
 };
 
 export default App;
+
+

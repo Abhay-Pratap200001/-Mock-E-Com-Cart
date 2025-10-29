@@ -1,4 +1,4 @@
-// src/components/LoadingSpinner.jsx
+//LoadingSpinner.jsx
 import React from "react";
 
 const LoadingSpinner = ({ fullScreen = true, text = "Loading..." }) => {

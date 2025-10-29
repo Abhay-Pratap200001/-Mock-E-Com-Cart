@@ -33,5 +33,4 @@ dist/
 build/
 out/
 
-# Ignore environment files
-.env
+
