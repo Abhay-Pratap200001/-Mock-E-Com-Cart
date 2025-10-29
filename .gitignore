@@ -24,3 +24,14 @@ coverage/
 
 # Misc
 *.tgz
+
+# Ignore dependencies
+node_modules/
+
+# Ignore build output
+dist/
+build/
+out/
+
+# Ignore environment files
+.env

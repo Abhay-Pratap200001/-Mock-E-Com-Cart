@@ -1,17 +1,43 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import { connectDB } from './utils/DbConnection.js';
+import productRoutes from './routes/product.Routes.js'
+import cartRoutes from './routes/cart.Routes.js'
+import checkoutRoutes from './routes/checkout.Routes.js'
+import { errorHandler } from './Middleware/error.Middleware.js';
+import cors from 'cors'
+import path from 'path'
 
 dotenv.config();
-
 const app = express()
 const PORT = process.env.PORT || 2000
 app.use(express.json())
 
+const _dirname = Path.resolve();
 
-//error middle ware
-// app.use(errorHandler);
+app.use(
+  cors({origin: "http://localhost:5173" }) // your Vite frontend
+);
 
+
+app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/checkout", checkoutRoutes);
+
+if (process.env.NODE_ENV === "PRODUCTION") {
+  app.use(express.static(path.join(__dirname, "/Client/dist")))
+
+  app.get('*', (req, res)=>{
+    res.send(path.resolve(__dirname, "Client", "dist", "index.html"))
+  })
+}
+
+
+app.get("/", (_, res) => {
+  res.send("Mock E-Com Cart Backend is running ✅");
+});
+
+app.use(errorHandler);
 
 
 connectDB().then(() => {
